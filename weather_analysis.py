@@ -230,24 +230,40 @@ print(correlation)
 # GRAPH 1 - TEMPERATURE TREND
 # ============================================
 
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(12, 5))
 
 plt.plot(
     df["Date"],
     df["Temperature"],
-    marker="o"
+    marker="o",
+    color="blue",
+    linewidth=2,
+    markerfacecolor="red",
+    markeredgecolor="black"
 )
+
+# Date labels on every dot
+for i in range(len(df)):
+    plt.annotate(
+        df["Date"].iloc[i].strftime("%d-%m-%Y"),
+        (df["Date"].iloc[i], df["Temperature"].iloc[i]),
+        textcoords="offset points",
+        xytext=(0, 10),
+        ha="center",
+        fontsize=8,
+        color="black"
+    )
 
 plt.title("Temperature Trend")
 plt.xlabel("Date")
 plt.ylabel("Temperature (°C)")
 plt.xticks(rotation=45)
+plt.grid(True, linestyle="--", alpha=0.5)
 
 plt.tight_layout()
-
 plt.savefig("graphs/temperature_trend.png")
-
 plt.show()
+
 
 # ============================================
 # GRAPH 2 - WEATHER CONDITION
@@ -255,17 +271,19 @@ plt.show()
 
 plt.figure(figsize=(7, 5))
 
-weather_count.plot(kind="bar")
+weather_count.plot(
+    kind="bar",
+    color=["orange", "skyblue", "green"]
+)
 
 plt.title("Weather Condition Frequency")
 plt.xlabel("Weather Condition")
 plt.ylabel("Number of Days")
 
 plt.tight_layout()
-
 plt.savefig("graphs/weather_condition.png")
-
 plt.show()
+
 
 # ============================================
 # GRAPH 3 - RAINFALL
@@ -275,67 +293,111 @@ plt.figure(figsize=(10, 5))
 
 plt.bar(
     df["Date"],
-    df["Rainfall"]
+    df["Rainfall"],
+    color="skyblue",
+    edgecolor="blue"
 )
 
 plt.title("Daily Rainfall")
 plt.xlabel("Date")
 plt.ylabel("Rainfall (mm)")
 
-plt.xticks(rotation=45)
+plt.xticks(
+    df["Date"],
+    df["Date"].dt.strftime("%d-%m-%Y"),
+    rotation=45
+)
 
 plt.tight_layout()
-
 plt.savefig("graphs/rainfall.png")
-
 plt.show()
+
 
 # ============================================
 # GRAPH 4 - HUMIDITY
 # ============================================
-
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(12, 5))
 
 plt.plot(
     df["Date"],
     df["Humidity"],
-    marker="o"
+    marker="o",
+    color="green",
+    linewidth=2,
+    markerfacecolor="yellow",
+    markeredgecolor="black"
 )
+
+# Date labels on every dot
+for i in range(len(df)):
+    plt.annotate(
+        df["Date"].iloc[i].strftime("%d-%m-%Y"),
+        (df["Date"].iloc[i], df["Humidity"].iloc[i]),
+        textcoords="offset points",
+        xytext=(0, 10),
+        ha="center",
+        fontsize=8,
+        color="black"
+    )
 
 plt.title("Humidity Trend")
 plt.xlabel("Date")
 plt.ylabel("Humidity (%)")
 
-plt.xticks(rotation=45)
+plt.xticks(
+    df["Date"],
+    df["Date"].dt.strftime("%d-%m-%Y"),
+    rotation=45
+)
+
+plt.grid(True, linestyle="--", alpha=0.5)
 
 plt.tight_layout()
-
 plt.savefig("graphs/humidity.png")
-
 plt.show()
+
 
 # ============================================
 # GRAPH 5 - WIND SPEED
 # ============================================
-
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(12, 5))
 
 plt.plot(
     df["Date"],
     df["WindSpeed"],
-    marker="o"
+    marker="o",
+    color="purple",
+    linewidth=2,
+    markerfacecolor="pink",
+    markeredgecolor="black"
 )
+
+# Date labels on every dot
+for i in range(len(df)):
+    plt.annotate(
+        df["Date"].iloc[i].strftime("%d-%m-%Y"),
+        (df["Date"].iloc[i], df["WindSpeed"].iloc[i]),
+        textcoords="offset points",
+        xytext=(0, 10),
+        ha="center",
+        fontsize=8,
+        color="black"
+    )
 
 plt.title("Wind Speed Trend")
 plt.xlabel("Date")
 plt.ylabel("Wind Speed (km/h)")
 
-plt.xticks(rotation=45)
+plt.xticks(
+    df["Date"],
+    df["Date"].dt.strftime("%d-%m-%Y"),
+    rotation=45
+)
+
+plt.grid(True, linestyle="--", alpha=0.5)
 
 plt.tight_layout()
-
 plt.savefig("graphs/wind_speed.png")
-
 plt.show()
 
 # ============================================
@@ -346,7 +408,9 @@ plt.figure(figsize=(8, 5))
 
 plt.hist(
     df["Temperature"],
-    bins=8
+    bins=8,
+    color="orange",
+    edgecolor="black"
 )
 
 plt.title("Temperature Distribution")
@@ -354,10 +418,9 @@ plt.xlabel("Temperature (°C)")
 plt.ylabel("Frequency")
 
 plt.tight_layout()
-
 plt.savefig("graphs/temperature_distribution.png")
-
 plt.show()
+
 
 # ============================================
 # GRAPH 7 - TEMPERATURE VS RAINFALL
@@ -367,18 +430,23 @@ plt.figure(figsize=(8, 5))
 
 plt.scatter(
     df["Temperature"],
-    df["Rainfall"]
+    df["Rainfall"],
+    color="red",
+    marker="o",
+    s=80,
+    edgecolor="black"
 )
 
 plt.title("Temperature vs Rainfall")
 plt.xlabel("Temperature (°C)")
 plt.ylabel("Rainfall (mm)")
 
+plt.grid(True, linestyle="--", alpha=0.5)
+
 plt.tight_layout()
-
 plt.savefig("graphs/temp_vs_rainfall.png")
-
 plt.show()
+
 
 # ============================================
 # FINAL MESSAGE
