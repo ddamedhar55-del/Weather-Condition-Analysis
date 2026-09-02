@@ -1,125 +1,57 @@
-# ==========================================
-# 1. IMPORTS & SETUP
-# ==========================================
-import os
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import seaborn as sns
+# Weather Condition Analysis 🌤️📊
 
-# Visual formatting style
-sns.set_theme(style="whitegrid")
-plt.rcParams["figure.figsize"] = (10, 6)
+A comprehensive Data Analysis project built with Python to analyze weather patterns, temperature trends, rainfall distribution, and humidity conditions.
 
-# Image folder automatically setup karne ke liye
-os.makedirs("screenshots", exist_ok=True)
+## 🚀 Features
+- **Temperature Distribution & Trend Analysis:** Visualizes historical temperature changes and density.
+- **Rainfall vs. Temperature Correlation:** Analyzes environmental factors affecting local weather.
+- **Automated Plotting:** Generates and saves visual graphs automatically inside the `graphs/` folder.
 
+## 📌 Executive Summary
+This project analyzes key weather variables including temperature, humidity, rainfall, and wind speed. By evaluating these parameters, the project aims to identify seasonal trends, climatic anomalies, and correlations between atmospheric indicators.
 
-# ==========================================
-# 2. DATASET INFORMATION & LOADING
-# ==========================================
-# (Demo ke liye synthetic dataset create kar rahe hain - apna CSV yahan replace karein)
-# df = pd.read_csv('data/your_dataset.csv')
+---
 
-np.random.seed(42)
-dates = pd.date_range(start="2025-01-01", periods=100, freq="D")
-categories = np.random.choice(
-    ["Electronics", "Clothing", "Home & Kitchen"], size=100
-)
-sales = np.random.randint(100, 1000, size=100)
-profit = sales * np.random.uniform(0.1, 0.4, size=100)
+## 📊 Visualizations & Overview
 
-df = pd.DataFrame(
-    {
-        "Date": dates,
-        "Category": categories,
-        "Sales": sales,
-        "Profit": profit,
-    }
-)
+### 1. Weather Condition Distribution
+![Weather Condition](graphs/weather_condition.png)
+* **Overview:** Displays the frequency and count of different weather conditions recorded in the dataset, identifying dominant local weather patterns.
 
-print("--- DATASET INFORMATION ---")
-print(df.info())
-print("\n--- FIRST 5 ROWS ---")
-print(df.head())
+### 2. Temperature Distribution
+![Temperature Distribution](graphs/temperature_distribution.png)
+* **Overview:** Illustrates the spread and frequency of temperature values, helping pinpoint normal ranges versus extreme variations.
 
+### 3. Temperature Trend
+![Temperature Trend](graphs/temperature_trend.png)
+* **Overview:** Highlights continuous temperature fluctuations over the timeline, capturing clear seasonal peaks and drops.
 
-# ==========================================
-# 3. ANALYSIS PERFORMED (DATA CLEANING & EDA)
-# ==========================================
-# Missing values check
-print("\nMissing Values Count:")
-print(df.isnull().sum())
+### 4. Temp vs Rainfall
+![Temp vs Rainfall](graphs/temp_vs_rainfall.png)
+* **Overview:** Explores the relationship between temperature changes and precipitation events to identify potential weather triggers.
 
-# Summary Statistics
-print("\nSummary Statistics:")
-print(df.describe())
+### 5. Humidity
+![Humidity](graphs/humidity.png)
+* **Overview:** Represents humidity variations across the dataset to assess atmospheric moisture concentration.
 
-# Category-wise Aggregation
-category_summary = (
-    df.groupby("Category")[["Sales", "Profit"]]
-    .sum()
-    .reset_index()
-    .sort_values(by="Sales", ascending=False)
-)
+### 6. Rainfall
+![Rainfall](graphs/rainfall.png)
+* **Overview:** Visualizes precipitation amounts and distribution patterns over the given observational period.
 
+### 7. Wind Speed
+![Wind Speed](graphs/wind_speed.png)
+* **Overview:** Tracks variations in wind speed to identify windy periods and calm atmospheric phases.
 
-# ==========================================
-# 4. GRAPHS & SCREENSHOT EXPORT
-# ==========================================
+---
 
-# Graph 1: Sales Trend Over Time
-plt.figure(figsize=(12, 5))
-plt.plot(df["Date"], df["Sales"], color="#2b5c8f", linewidth=2, label="Sales")
-plt.title("Daily Sales Trend Over Time", fontsize=14, fontweight="bold")
-plt.xlabel("Date")
-plt.ylabel("Sales ($)")
-plt.tight_layout()
-# Screenshot Auto-Save
-plt.savefig("screenshots/trend_graph.png", dpi=300)
-plt.show()
+## 💡 Key Findings
+* **Temperature Stability:** The temperature distribution exhibits a steady central tendency with occasional high-temperature peaks during specific periods.
+* **Precipitation Correlation:** Rainfall shows noticeable clustering around specific temperature intervals, indicating conditional weather activity.
+* **Environmental Interdependence:** High humidity levels frequently coincide with increased rainfall indicators and reduced temperature spikes.
 
-# Graph 2: Category-wise Sales & Profit (Bivariate Analysis)
-plt.figure(figsize=(8, 5))
-sns.barplot(
-    data=category_summary,
-    x="Category",
-    y="Sales",
-    hue="Category",
-    palette="Blues_d",
-    legend=False,
-)
-plt.title("Total Sales by Product Category", fontsize=14, fontweight="bold")
-plt.xlabel("Category")
-plt.ylabel("Total Sales ($)")
-plt.tight_layout()
-# Screenshot Auto-Save
-plt.savefig("screenshots/category_sales.png", dpi=300)
-plt.show()
+## 🏁 Conclusion
+The **Weather Condition Analysis** project successfully automates the extraction of key meteorology insights through data visualization. The visual models clearly map environmental trends and variable dependencies, serving as a reliable foundation for predictive forecasting or further climate data studies.
 
-# Graph 3: Correlation Heatmap
-plt.figure(figsize=(6, 4))
-numeric_df = df.select_dtypes(include=[np.number])
-sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
-plt.title("Feature Correlation Heatmap", fontsize=14, fontweight="bold")
-plt.tight_layout()
-# Screenshot Auto-Save
-plt.savefig("screenshots/heatmap.png", dpi=300)
-plt.show()
+---
 
-
-# ==========================================
-# 5. KEY FINDINGS (PRINT OUTPUT)
-# ==========================================
-top_cat = category_summary.iloc[0]["Category"]
-total_sales = df["Sales"].sum()
-total_profit = df["Profit"].sum()
-
-print("\n================ KEY FINDINGS ================")
-print(f"1. Overall Total Revenue: ${total_sales:,.2f}")
-print(f"2. Overall Total Profit:  ${total_profit:,.2f}")
-print(f"3. Top Performing Category: '{top_cat}' with highest total sales.")
-print(
-    f"4. Average Profit Margin:  {(total_profit / total_sales) * 100:.2f}%"
-)
-print("==============================================")
+## 📁 Repository Structure
